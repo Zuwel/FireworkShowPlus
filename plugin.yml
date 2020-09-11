@@ -1,9 +1,9 @@
+version: 1.0.2
 name: FireworkShow
-author: iGufGuf
-version: 1.0.1
-description: 'The best FireworkShow plugin for scheduled and customized firework effects!'
+author: [iGufGuf, Jackietkfrost, Zuwel]
 main: com.igufguf.fireworkshow.Main
+api-version: 1.14
 commands:
   fireworkshow:
-    description: Basic fireworkshow command
-    aliases: [fws]
+    description: Basic Fireworkshow command
+    aliases: fws

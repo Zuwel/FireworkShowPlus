@@ -314,11 +314,11 @@ public class Main extends JavaPlugin {
             }
 
             Player p = (Player) sender;
-            if ( p.getItemInHand() == null || p.getItemInHand().getType() != Material.FIREWORK ) {
+            if ( p.getInventory().getItemInMainHand() == null ||p.getInventory().getItemInMainHand().getType() != Material.FIREWORK_ROCKET){
                 sender.sendMessage(ChatColor.RED + "Please hold a firework or firework charge in your hand!");
                 return true;
             }
-            FireworkMeta meta = (FireworkMeta) p.getItemInHand().getItemMeta();
+            FireworkMeta meta = (FireworkMeta) p.getInventory().getItemInMainHand().getItemMeta();
 
             NormalFireworks nf = new NormalFireworks(meta, p.getLocation());
             shows.get(name).get(frame-1).add(nf);

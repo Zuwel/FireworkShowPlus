@@ -5,5 +5,5 @@ main: com.igufguf.fireworkshow.Main
 api-version: 1.14
 commands:
   fireworkshow:
-    description: Basic fireworkshow command
-    aliases: [fws]
+    description: Basic Fireworkshow command
+    aliases: fws

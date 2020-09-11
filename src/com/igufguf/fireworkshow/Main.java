@@ -114,7 +114,7 @@ public class Main extends JavaPlugin {
             Show show = shows.get(args[1].toLowerCase());
 
             if ( show.isRunning() ) {
-                sender.sendMessage(ChatColor.GREEN + "ireworkshow " + ChatColor.DARK_GREEN + args[1].toLowerCase() + ChatColor.GREEN + " is already running!");
+                sender.sendMessage(ChatColor.GREEN + "fireworkshow " + ChatColor.DARK_GREEN + args[1].toLowerCase() + ChatColor.GREEN + " is already running!");
                 return true;
             }
 

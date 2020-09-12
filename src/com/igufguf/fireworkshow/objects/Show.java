@@ -1,6 +1,6 @@
 package com.igufguf.fireworkshow.objects;
 
-import com.igufguf.fireworkshow.Main;
+import com.igufguf.fireworkshow.FireworkShow;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -41,7 +41,7 @@ public class Show implements ConfigurationSerializable {
         long current = 0;
         for ( final Frame f : frames ) {
             current += f.getDelay();
-            taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+            taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(FireworkShow.fws, new Runnable() {
                 @Override
                 public void run() {
                     f.play(highest);
@@ -49,7 +49,7 @@ public class Show implements ConfigurationSerializable {
             }, current));
         }
 
-        taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+        taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(FireworkShow.fws, new Runnable() {
             @Override
             public void run() {
                 running = false;

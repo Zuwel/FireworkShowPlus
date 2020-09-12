@@ -12,8 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 
-import java.io.File;
-import java.io.IOException;
+
 import java.util.Set;
 
 public class CommandHandler implements CommandExecutor {
@@ -75,6 +74,7 @@ public class CommandHandler implements CommandExecutor {
         {
             if ( args.length != 2 )
             {
+
                 sender.sendMessage(ChatColor.RED + "Invalid arguments, you should try " + ChatColor.DARK_RED + "/" + cmd.getName() + " stop <showname>");
                 return true;
             }

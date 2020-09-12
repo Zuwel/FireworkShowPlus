@@ -1,8 +1,8 @@
-version: 1.0.2
+version: 2.0.0
 name: FireworkShow
-author: [iGufGuf, Jackietkfrost, Zuwel]
-main: com.igufguf.fireworkshow.Main
-api-version: 1.14
+authors: [iGufGuf, Jackietkfrost, Zuwel]
+main: com.igufguf.fireworkshow.FireworkShow
+api-version: 1.16
 commands:
   fireworkshow:
     description: Basic Fireworkshow command

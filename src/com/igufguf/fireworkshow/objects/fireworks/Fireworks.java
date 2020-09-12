@@ -30,7 +30,7 @@ public abstract class Fireworks implements ConfigurationSerializable {
         this.loc = loc;
     }
 
-    public abstract void play();
+    public abstract void play(boolean highest);
 
     public void setPos(Location loc) {
         this.loc = loc;

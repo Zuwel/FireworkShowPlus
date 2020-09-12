@@ -39,9 +39,9 @@ public class Frame implements ConfigurationSerializable {
         return delay;
     }
 
-    public void play() {
+    public void play(boolean highest) {
         for ( Fireworks fw : fireworks ) {
-            fw.play();
+            fw.play(highest);
         }
     }
 

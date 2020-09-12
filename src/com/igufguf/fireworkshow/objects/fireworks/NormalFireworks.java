@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -41,8 +42,10 @@ public class NormalFireworks extends Fireworks {
     }
 
     @Override
-    public void play() {
-        Firework firework = (org.bukkit.entity.Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
+    public void play(boolean highest) {
+        Location newLoc = loc;
+        if(highest) { newLoc = newLoc.getWorld().getHighestBlockAt(newLoc).getLocation().add(0.5,1,0.5); } // If the highest parameter is true for the show, it will spawn the entity at the highest block location.
+        Firework firework = (org.bukkit.entity.Firework) loc.getWorld().spawnEntity(newLoc, EntityType.FIREWORK);
         firework.setFireworkMeta(meta);
     }
 

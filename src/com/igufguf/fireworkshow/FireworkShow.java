@@ -59,7 +59,7 @@ public class FireworkShow extends JavaPlugin
         }
 
         for ( String key : showsfile.getKeys(false) ) {
-            getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "[FireworkShow]: Indexing show '" + key + "'...");
+            getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Indexing show '" + key + "'...");
             Show show = new Show(); //Create new show object to put in our hashmap
 
             if ( showsfile.contains(key+".name") ) { //Check if the parameter exists
@@ -152,6 +152,10 @@ public class FireworkShow extends JavaPlugin
         }
     }
 
+    //TODO: Add a config option to censor profanity in fireworks shows
+    //  Try and make it handle Cunthorpe problem adequately.
+    //  Alternatively have it hide them from the shows list.
+    //  Also add param to make it private or public show. (Private shows only available to Authors/Editors/OP's, requires perm fireworks.shows.list.viewall)
     public static void createShow(String name)
     {
         String uuid = "";
@@ -166,6 +170,8 @@ public class FireworkShow extends JavaPlugin
         saveShows();
     }
 
+    //TODO: Needs to work with several ways of deleting. (UUID/Name Search/Author
+    //  Also needs to have several ways of deleting. (Shows with name/All by Author)
     public static boolean deleteShow(String uuid)
     {
         if ( shows.containsKey( uuid ) ) {

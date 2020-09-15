@@ -44,7 +44,6 @@ public class NormalFireworks extends Fireworks {
 
     public static NormalFireworks deserialize(Map<String, Object> args) {
         FireworkMeta meta = (FireworkMeta) args.get("meta");
-        NormalFireworks nf = new NormalFireworks(meta, (Location) args.get("location"));
-        return nf;
+        return new NormalFireworks(meta, (Location) args.get("location"));
     }
 }

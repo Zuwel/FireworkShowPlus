@@ -29,10 +29,19 @@ import java.util.Map;
  **/
 public class Show implements ConfigurationSerializable {
 
+    private String name;
     public ArrayList<Frame> frames = new ArrayList<Frame>();
     private ArrayList<Integer> taskids = new ArrayList<Integer>();
     private boolean running = false;
-    public boolean highest = false;
+    private boolean highest = false;
+
+    public Show() {
+        this("New Show");
+    }
+
+    public Show(String name) {
+        this.name = name;
+    }
 
     public void play() {
         if ( running ) return;
@@ -70,13 +79,18 @@ public class Show implements ConfigurationSerializable {
         return running;
     }
 
-
-    public boolean getHighest() {
-        return highest;
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
     }
 
     public void setHighest(boolean highest) {
         this.highest = highest;
+    }
+    public boolean getHighest() {
+        return highest;
     }
 
     @Override

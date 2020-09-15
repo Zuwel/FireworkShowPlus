@@ -1,30 +1,103 @@
 package com.igufguf.fireworkshow.commands;
 
-import com.igufguf.fireworkshow.FireworkShow;
-import com.igufguf.fireworkshow.objects.fireworks.NormalFireworks;
-import com.igufguf.fireworkshow.objects.Frame;
-import com.igufguf.fireworkshow.objects.Show;
+import com.igufguf.fireworkshow.commands.base.BaseCommand;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.meta.FireworkMeta;
 
-
-import java.util.Set;
+import java.util.ArrayList;
 
 public class CommandHandler implements CommandExecutor {
 
+
+    private static ArrayList<BaseCommand> commands = new ArrayList<BaseCommand>();
+
+    public void register(BaseCommand cmd) {
+        commands.add(cmd);
+    }
+
+    //This will be used to check if a command exists or not.
+    public boolean exists(String name) {
+        for ( BaseCommand cmd : commands ) {
+            for ( String alias : cmd.aliases() ) {
+                if ( alias.equalsIgnoreCase(name) ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //Getter method for the Executor.
+    public BaseCommand getExecutor(String name) {
+        for ( BaseCommand cmd : commands ) {
+            for ( String alias : cmd.aliases() ) {
+                if ( alias.equalsIgnoreCase(name) ) {
+                    return cmd;
+                }
+            }
+        }
+        return null;
+    }
+
     @Override
+    public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+
+        //What runs if no extra arguments are given
+        if(args.length == 0) {
+            getExecutor("mainmenu").onCommand(sender, cmd, commandLabel, args);
+            return true;
+        }
+
+        //What if there are arguments in the command? Such as /example args
+        if(args.length > 0) {
+
+            try {
+                BaseCommand executor = getExecutor(args[0]);
+
+                //Check if the command sender is allowed to execute the command
+                if (sender instanceof ConsoleCommandSender && !executor.serverExec()) {
+                    sender.sendMessage(ChatColor.RED + "The server is not allowed to use this command.");
+                    return false;
+                }
+                if (sender instanceof Player && !executor.playerExec()) {
+                    sender.sendMessage(ChatColor.RED + "Players are not allowed to use this command.");
+                    return false;
+                }
+
+                if ( !sender.hasPermission(executor.permission()) ) {
+                    sender.sendMessage(ChatColor.RED + "You do not have the permissions necessary to use this command.");
+                    return false;
+                }
+
+                executor.onCommand(sender, cmd, commandLabel, args);
+                return true;
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+                sender.sendMessage(ChatColor.RED + "Not a valid command!");
+                return false;
+            }
+
+        }
+
+        return false;
+    }
+
+    //TODO: Reimplement all the commands (preferably better than they are right now)
+    //  Completed:
+    //      - Create Show
+    //      - Delete Show
+    /*@Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args)
     {
         if (!cmd.getName().equalsIgnoreCase("fireworkshow")) { return true; }
 
         //Help command for Fireworks Shows
-        if (args.length < 1 || (args.length == 1 && args[0].equals("help")))
-        {
+        if (args.length < 1 || (args.length == 1 && args[0].equals("help"))) {
             sender.sendMessage(ChatColor.GREEN + "/fws create <showname>" + ChatColor.GRAY + " Create a new fireworkshow");
             sender.sendMessage(ChatColor.GREEN + "/fws delete <showname>" + ChatColor.GRAY + " Delete a fireworkshow");
             sender.sendMessage(ChatColor.GREEN + "/fws addframe <showname> <delay>" + ChatColor.GRAY + " Add a frame to a show");
@@ -35,6 +108,7 @@ public class CommandHandler implements CommandExecutor {
             sender.sendMessage(ChatColor.GREEN + "/fws highest <showname> <true/false>" + ChatColor.GRAY + " Set if the fireworks will spawn on the highest block available or where it was initially placed");
             return true;
         }
+
         //Play Fireworks show command
         if (args[0].equalsIgnoreCase("play"))
         {
@@ -357,5 +431,5 @@ public class CommandHandler implements CommandExecutor {
         FireworkShow.saveShows();
         return true;
     }
-
+    */
 }

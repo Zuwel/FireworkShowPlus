@@ -46,11 +46,11 @@ public class CreateShowCommand implements BaseCommand {
 
         //If there are additional arguments, concatenate them and use them as the name.
         if (args.length > 0) {
-            String argsJoin = args[1];
+            StringBuilder argsJoin = new StringBuilder(args[1]);
             for (int i = 2; i < args.length; i++) {
-                argsJoin += " " + args[i];
+                argsJoin.append(" ").append(args[i]);
             }
-            name = argsJoin;
+            name = argsJoin.toString();
         }
 
         FireworkShow.createShow(name);

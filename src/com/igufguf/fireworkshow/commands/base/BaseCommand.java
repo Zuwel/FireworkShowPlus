@@ -18,6 +18,7 @@ public interface BaseCommand {
     String[] aliases();
 
     //Permission associated with running this command
+    //Example: "fireworkshow.category.item"
     String permission();
 
     //Flag for indicating if a player can use this command.
@@ -28,6 +29,7 @@ public interface BaseCommand {
     //Example: false
     boolean serverExec();
 
+    //Command event execution function.
     boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
 
 }

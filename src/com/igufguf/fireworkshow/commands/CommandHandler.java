@@ -19,7 +19,8 @@ public class CommandHandler implements CommandExecutor {
         commands.add(cmd);
     }
 
-    //This will be used to check if a command exists or not.
+    //This will be used to check if a command exists or not...
+    //  Might delete if not used in major revisions. (Made in V2.1.0)
     public boolean exists(String name) {
         for ( BaseCommand cmd : commands ) {
             for ( String alias : cmd.aliases() ) {
@@ -40,6 +41,7 @@ public class CommandHandler implements CommandExecutor {
                 }
             }
         }
+        //Gotta return something if nothing found (in this case null)
         return null;
     }
 
@@ -78,7 +80,7 @@ public class CommandHandler implements CommandExecutor {
 
             } catch (NullPointerException e) {
                 e.printStackTrace();
-                sender.sendMessage(ChatColor.RED + "Not a valid command!");
+                sender.sendMessage(ChatColor.RED + "Unrecognized command!");
                 return false;
             }
 

@@ -273,7 +273,7 @@ public class CommandHandler implements CommandExecutor {
             }
             int frameid = Integer.valueOf(args[2]);
 
-            Frame frame = FireworkShow.getShows().get(name).frames.get(frameid-1);
+            Frame frame = new Frame(FireworkShow.getShows().get(name).frames.get(frameid-1));
             FireworkShow.getShows().get(name).frames.add(frame);
             FireworkShow.getShowFiles().set(name, FireworkShow.getShows().get(name));
             sender.sendMessage(ChatColor.GREEN + "You duplicated a frame (#" + ChatColor.YELLOW + FireworkShow.getShows().get(name).frames.size() + ChatColor.GREEN + ") " +
@@ -354,6 +354,38 @@ public class CommandHandler implements CommandExecutor {
                 sender.sendMessage(list[(page*maxItems) + i]);
             }
         }
+
+        else if ( args[0].equalsIgnoreCase("highest") ) {
+            if ( args.length < 2 ) {
+                sender.sendMessage(ChatColor.RED + "Invalid arguments, you should try " + ChatColor.DARK_RED + "/" + cmd.getName() + " highest <showname> <true/false>");
+                return true;
+            }
+
+            if ( !sender.hasPermission("fireworkshow.highest") ) {
+                sender.sendMessage(ChatColor.RED + "You don't have permission to use this command!");
+                return true;
+            }
+            String name = args[1].toLowerCase();
+
+
+            if ( !FireworkShow.getShows().containsKey(name) ) {
+                sender.sendMessage(ChatColor.RED + "A show with that name doesn't exists!");
+                return true;
+            }
+
+            if ( args[2].equalsIgnoreCase("true") ) {
+                FireworkShow.getShows().get(name).setHighest(true);
+            } else if ( args[2].equalsIgnoreCase("false")) {
+                FireworkShow.getShows().get(name).setHighest(false);
+            } else {
+                sender.sendMessage(ChatColor.RED + "Invalid input! Use 'true' or 'false'.");
+                return true;
+            }
+            FireworkShow.getShowFiles().set(name, FireworkShow.getShows().get(name));
+            sender.sendMessage(ChatColor.GREEN + "You set highest parameter for '" + ChatColor.DARK_GREEN + name
+                    + ChatColor.GREEN + "' to " + FireworkShow.getShows().get(name).getHighest() + ".");
+        }
+
         FireworkShow.saveShows();
         return true;
     }

@@ -36,6 +36,11 @@ public class NormalFireworks extends Fireworks {
         this.meta = meta;
     }
 
+    public NormalFireworks(NormalFireworks f) {
+        super(f);
+        meta = f.getMeta().clone();
+    }
+
     public FireworkMeta getMeta() {
         return meta;
     }

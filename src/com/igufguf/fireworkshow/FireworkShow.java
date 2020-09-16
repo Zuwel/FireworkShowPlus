@@ -5,6 +5,7 @@ import com.igufguf.fireworkshow.objects.Show;
 import com.igufguf.fireworkshow.objects.Frame;
 import com.igufguf.fireworkshow.objects.fireworks.NormalFireworks;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.command.Command;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 
 public class FireworkShow extends JavaPlugin
@@ -24,13 +26,18 @@ public class FireworkShow extends JavaPlugin
     private static FileConfiguration showsfile = new YamlConfiguration();
     public static FireworkShow fws;
     public static File dataFolder;
+    private static Server server;
     @Override
     public void onEnable()
     {
         CommandHandler commands = new CommandHandler();
         fws = this;
+        server = getServer();
 
         dataFolder = getDataFolder();
+
+        shows.clear();
+
         File f = new File(dataFolder, "shows.yml");
         if ( !f.exists() )
         {
@@ -55,21 +62,21 @@ public class FireworkShow extends JavaPlugin
         }
 
         for ( String key : showsfile.getKeys(false) ) {
-            Show show = new Show();
-            show.setHighest(showsfile.getBoolean(key+".highest"));
-            for ( Frame frame : (ArrayList<Frame>) showsfile.getList(key+".frames") ) {
-                show.frames.add(frame);
-            }
+            getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Indexing show '" + key + "'...");
+            Show show = new Show((Show) showsfile.get(key)); //Create new show object to put in our hashmap
             shows.put(key, show);
         }
+
+        saveShows();
+
         getCommand("fireworkshow").setExecutor(commands);
-        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworksShow]: Fireworks show is Enabled!");
+        getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Fireworks show is Enabled!");
     }
 
     @Override
     public void onDisable()
     {
-        getServer().getConsoleSender().sendMessage(ChatColor.RED + "[FireworksShow]: Fireworks show is Disabled!");
+        getServer().getConsoleSender().sendMessage(ChatColor.RED + "[FireworkShow]: Fireworks show is Disabled!");
     }
 
     //Getters
@@ -86,8 +93,10 @@ public class FireworkShow extends JavaPlugin
     public static void saveShows()
     {
         try {
+            server.getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Attempting to save fireworkshow to 'shows.yml'!");
             showsfile.save(new File(dataFolder, "shows.yml"));
         } catch (IOException e) {
+            server.getConsoleSender().sendMessage(ChatColor.RED + "[FireworkShow]: Failed to save fireworkshow to 'shows.yml'!");
             e.printStackTrace();
         }
     }
@@ -96,7 +105,5 @@ public class FireworkShow extends JavaPlugin
     {
         shows.put(name, new Show());
         showsfile.set(name, shows.get(name));
-        showsfile.set(name+".highest", shows.get(name).getHighest());
-        showsfile.set(name+".frames", shows.get(name).frames);
     }
 }

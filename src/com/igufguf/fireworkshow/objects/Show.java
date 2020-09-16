@@ -34,6 +34,15 @@ public class Show implements ConfigurationSerializable {
     private boolean running = false;
     public boolean highest = false;
 
+    public Show() {
+
+    }
+
+    public Show(Show show) {
+        frames = (ArrayList<Frame>) show.frames.clone();
+        highest = show.highest;
+    }
+
     public void play() {
         if ( running ) return;
         running = true;

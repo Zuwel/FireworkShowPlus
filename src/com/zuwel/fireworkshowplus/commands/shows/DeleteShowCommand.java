@@ -1,8 +1,7 @@
-package com.igufguf.fireworkshow.commands.shows;
+package com.zuwel.fireworkshowplus.commands.shows;
 
-import com.igufguf.fireworkshow.FireworkShow;
-import com.igufguf.fireworkshow.commands.base.BaseCommand;
-import net.md_5.bungee.protocol.packet.Chat;
+import com.zuwel.fireworkshowplus.FireworkShow;
+import com.zuwel.fireworkshowplus.commands.base.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

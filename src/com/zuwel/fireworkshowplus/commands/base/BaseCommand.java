@@ -1,4 +1,4 @@
-package com.igufguf.fireworkshow.commands.base;
+package com.zuwel.fireworkshowplus.commands.base;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

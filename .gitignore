@@ -2,5 +2,4 @@
 .idea/
 out/*
 #Intellij iml file
-Ultimate FireworkShow.iml
-UltimateFireworkShow.iml
+*.iml

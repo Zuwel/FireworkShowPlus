@@ -1,6 +1,6 @@
-package com.igufguf.fireworkshow.commands.frames;
+package com.zuwel.fireworkshowplus.commands.frames;
 
-import com.igufguf.fireworkshow.commands.base.BaseCommand;
+import com.zuwel.fireworkshowplus.commands.base.BaseCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 

@@ -1,9 +1,12 @@
-# Ultimate-FireworkShow
-Minecraft plugin: Create a fully customizable firework show with minecraft fireworks!
+# Ultimate-FireworkShow-Reborn
+Minecraft plugin: Create a customizable fireworks show with minecraft fireworks!
 
 This plugin makes use of the bukkit serialization system, editing a firework show in the data files is a bad idea!
 
-####Check my website: https://mcdev.igufguf.com
+Original Creator: [igufguf](https://mcdev.igufguf.com)
+Being Maintained (Possibly forever?) by [Jackietkfrost](https://am-x2.com) and [Zuwel](https://github.com/Zuwel)
+
+Updated for version 1.16.3, Hasn't been tested on earlier versions.
 
 ## Commands
 Aliases: /fireworkshow - /fws
@@ -21,7 +24,7 @@ Aliases: /fireworkshow - /fws
   - fireworkshow.delete
 
 * **/fws addframe <showname> <delay>**  
-  - Add a frame to the show, delay is in ticks*
+  - Add an empty frame to the show, delay is in ticks (1 second is 20 ticks)*
   - fireworkshow.addframe
 
 * **/fws delframe <showname> <frameid>**  
@@ -33,7 +36,7 @@ Aliases: /fireworkshow - /fws
   - fireworkshow.dupframe
 
 * **/fws nwfw <showname>**  
-  - Add the firework you're holding to the last frame on your current position
+  - Add the firework in your main hand to the last frame on your current position
   - fireworkshow.newfw
   
 * **/fws nwfw <showname> <frameid>**  

@@ -1,6 +1,6 @@
 package com.igufguf.fireworkshow.objects;
 
-import com.igufguf.fireworkshow.Main;
+import com.igufguf.fireworkshow.FireworkShow;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -27,27 +27,38 @@ import java.util.Map;
  * along with Ultimate Fireworkshow.  If not, see http://www.gnu.org/licenses/
  *
  **/
-public class Show extends ArrayList<Frame> implements ConfigurationSerializable {
+public class Show implements ConfigurationSerializable {
 
+    public ArrayList<Frame> frames = new ArrayList<Frame>();
     private ArrayList<Integer> taskids = new ArrayList<Integer>();
     private boolean running = false;
+    public boolean highest = false;
+
+    public Show() {
+
+    }
+
+    public Show(Show show) {
+        frames = (ArrayList<Frame>) show.frames.clone();
+        highest = show.highest;
+    }
 
     public void play() {
         if ( running ) return;
         running = true;
 
         long current = 0;
-        for ( final Frame f : this ) {
+        for ( final Frame f : frames ) {
             current += f.getDelay();
-            taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+            taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(FireworkShow.fws, new Runnable() {
                 @Override
                 public void run() {
-                    f.play();
+                    f.play(highest);
                 }
             }, current));
         }
 
-        taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(Main.main, new Runnable() {
+        taskids.add(Bukkit.getScheduler().scheduleSyncDelayedTask(FireworkShow.fws, new Runnable() {
             @Override
             public void run() {
                 running = false;
@@ -68,18 +79,30 @@ public class Show extends ArrayList<Frame> implements ConfigurationSerializable 
         return running;
     }
 
+
+    public boolean getHighest() {
+        return highest;
+    }
+
+    public void setHighest(boolean highest) {
+        this.highest = highest;
+    }
+
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<String, Object>();
-        map.put("frames", this);
+        map.put("highest", highest);
+        map.put("frames", frames);
 
         return map;
     }
 
     public static Show deserialize(Map<String, Object> args) {
+        boolean highest = (Boolean) args.get("highest");
         Show show = new Show();
-        for ( Frame f : (Show) args.get("frames") ) {
-            show.add(f);
+        show.setHighest(highest);
+        for ( Frame f : (ArrayList<Frame>) args.get("frames") ) {
+            show.frames.add(f);
         }
         return show;
     }

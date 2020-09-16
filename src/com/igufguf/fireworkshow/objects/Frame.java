@@ -1,6 +1,7 @@
 package com.igufguf.fireworkshow.objects;
 
 import com.igufguf.fireworkshow.objects.fireworks.Fireworks;
+import com.igufguf.fireworkshow.objects.fireworks.NormalFireworks;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import java.util.ArrayList;
@@ -28,24 +29,31 @@ import java.util.Map;
 **/
 public class Frame implements ConfigurationSerializable {
 
-    public ArrayList<Fireworks> fireworks = new ArrayList<Fireworks>();
+    public ArrayList<NormalFireworks> fireworks = new ArrayList<NormalFireworks>();
     public long delay;
 
     public Frame(long delay) {
         this.delay = delay;
     }
 
+    public Frame(Frame frame) {
+        for ( NormalFireworks f : frame.fireworks) {
+            fireworks.add(new NormalFireworks(f));
+        }
+        delay = frame.delay;
+    }
+
     public long getDelay() {
         return delay;
     }
 
-    public void play() {
+    public void play(boolean highest) {
         for ( Fireworks fw : fireworks ) {
-            fw.play();
+            fw.play(highest);
         }
     }
 
-    public void add(Fireworks fw) {
+    public void add(NormalFireworks fw) {
         fireworks.add(fw);
     }
 
@@ -69,7 +77,7 @@ public class Frame implements ConfigurationSerializable {
     public static Frame deserialize(Map<String, Object> args) {
         long delay = ((Number) args.get("delay")).longValue();
         Frame frame = new Frame(delay);
-        for ( Fireworks fw : (ArrayList<Fireworks>) args.get("fireworks") ) {
+        for ( NormalFireworks fw : (ArrayList<NormalFireworks>) args.get("fireworks") ) {
             frame.add(fw);
         }
         return frame;

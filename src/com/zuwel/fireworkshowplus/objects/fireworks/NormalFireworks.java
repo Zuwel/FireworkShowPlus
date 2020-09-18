@@ -1,10 +1,9 @@
-package com.igufguf.fireworkshow.objects.fireworks;
+package com.zuwel.fireworkshowplus.objects.fireworks;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.inventory.meta.FireworkMeta;
-import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 import java.util.Map;

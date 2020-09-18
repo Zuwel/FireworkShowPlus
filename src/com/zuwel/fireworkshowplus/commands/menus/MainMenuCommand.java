@@ -1,13 +1,9 @@
-package com.igufguf.fireworkshow.commands.menus;
+package com.zuwel.fireworkshowplus.commands.menus;
 
-import com.igufguf.fireworkshow.commands.base.BaseCommand;
+import com.zuwel.fireworkshowplus.commands.base.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import net.md_5.bungee.api.chat.ClickEvent;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 
 public class MainMenuCommand implements BaseCommand {
 

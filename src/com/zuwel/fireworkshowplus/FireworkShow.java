@@ -1,14 +1,15 @@
-package com.igufguf.fireworkshow;
+package com.zuwel.fireworkshowplus;
 
-import com.igufguf.fireworkshow.commands.CommandHandler;
-import com.igufguf.fireworkshow.commands.frames.AddFrameCommand;
-import com.igufguf.fireworkshow.commands.menus.MainMenuCommand;
-import com.igufguf.fireworkshow.commands.shows.CreateShowCommand;
-import com.igufguf.fireworkshow.commands.shows.DeleteShowCommand;
-import com.igufguf.fireworkshow.objects.Show;
-import com.igufguf.fireworkshow.objects.Frame;
-import com.igufguf.fireworkshow.objects.fireworks.NormalFireworks;
+import com.zuwel.fireworkshowplus.commands.CommandHandler;
+import com.zuwel.fireworkshowplus.commands.frames.AddFrameCommand;
+import com.zuwel.fireworkshowplus.commands.menus.MainMenuCommand;
+import com.zuwel.fireworkshowplus.commands.shows.CreateShowCommand;
+import com.zuwel.fireworkshowplus.commands.shows.DeleteShowCommand;
+import com.zuwel.fireworkshowplus.objects.Show;
+import com.zuwel.fireworkshowplus.objects.Frame;
+import com.zuwel.fireworkshowplus.objects.fireworks.NormalFireworks;
 import org.bukkit.ChatColor;
+import org.bukkit.Server;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -17,7 +18,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -27,6 +27,7 @@ public class FireworkShow extends JavaPlugin
     private static final HashMap<String, Show> shows = new HashMap<>();
     private static FileConfiguration showsfile = new YamlConfiguration();
     public static FireworkShow fws;
+    public static Server server;
     public static CommandHandler handler;
     public static File dataFolder;
 
@@ -60,28 +61,7 @@ public class FireworkShow extends JavaPlugin
 
         for ( String key : showsfile.getKeys(false) ) {
             getServer().getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Indexing show '" + key + "'...");
-            Show show = new Show(); //Create new show object to put in our hashmap
-
-            if ( showsfile.contains(key+".name") ) { //Check if the parameter exists
-                show.setName(showsfile.getString(key+".name"));
-            } else {
-                getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "[FireworkShow]: No 'name' param found. Adding param...");
-                showsfile.set(key+".name",show.getName()); //Set the default value in the show file
-            }
-
-            if ( showsfile.contains(key+".frames") ) {
-                show.frames.addAll((ArrayList<Frame>) showsfile.getList(key + ".frames"));
-            } else {
-                getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "[FireworkShow]: No 'frames' param found. Adding param...");
-                showsfile.set(key+".frames",show.frames);
-            }
-
-            if ( showsfile.contains(key+".highest") ) { //Check if the parameter exists
-                show.setHighest(showsfile.getBoolean(key+".highest"));
-            } else {
-                getServer().getConsoleSender().sendMessage(ChatColor.YELLOW + "[FireworkShow]: No 'highest' param found. Adding param...");
-                showsfile.set(key+".highest",show.getHighest()); //Set the default value in the show file
-            }
+            Show show = new Show((Show) showsfile.get(key)); //Create new show object to put in our hashmap
 
             shows.put(key, show);
         }
@@ -102,9 +82,9 @@ public class FireworkShow extends JavaPlugin
     @Override
     public void onEnable()
     {
-        handler = new CommandHandler();
         fws = this;
-
+        server = getServer();
+        handler = new CommandHandler();
         dataFolder = getDataFolder();
 
         ConfigurationSerialization.registerClass(Show.class);
@@ -146,8 +126,10 @@ public class FireworkShow extends JavaPlugin
     public static void saveShows(String fileName)
     {
         try {
+            server.getConsoleSender().sendMessage(ChatColor.GREEN + "[FireworkShow]: Attempting to save fireworkshow to '" + fileName + ".yml'!");
             showsfile.save(new File(dataFolder, fileName+".yml"));
         } catch (IOException e) {
+            server.getConsoleSender().sendMessage(ChatColor.RED + "[FireworkShow]: Failed to save fireworkshow to '" + fileName + ".yml'!");
             e.printStackTrace();
         }
     }
@@ -162,11 +144,8 @@ public class FireworkShow extends JavaPlugin
         while ( uuid.isEmpty() || showsfile.contains(uuid)) {
             uuid = UUID.randomUUID().toString();
         }
-        shows.put(uuid, new Show());
+        shows.put(uuid, new Show(name));
         showsfile.set(uuid, shows.get(uuid));
-        showsfile.set(uuid+".name", name);
-        showsfile.set(uuid+".highest", shows.get(uuid).getHighest());
-        showsfile.set(uuid+".frames", shows.get(uuid).frames);
         saveShows();
     }
 

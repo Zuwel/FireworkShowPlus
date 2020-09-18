@@ -1,6 +1,6 @@
-package com.igufguf.fireworkshow.objects;
+package com.zuwel.fireworkshowplus.objects;
 
-import com.igufguf.fireworkshow.FireworkShow;
+import com.zuwel.fireworkshowplus.FireworkShow;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
@@ -22,6 +22,12 @@ public class Show implements ConfigurationSerializable {
 
     public Show(String name) {
         this.name = name;
+    }
+
+    public Show(Show show) {
+        name = show.name;
+        frames = (ArrayList<Frame>) show.frames.clone();
+        highest = show.highest;
     }
 
     public void play() {
@@ -77,6 +83,7 @@ public class Show implements ConfigurationSerializable {
     @Override
     public Map<String, Object> serialize() {
         Map<String, Object> map = new HashMap<String, Object>();
+        map.put("name", name);
         map.put("highest", highest);
         map.put("frames", frames);
 
@@ -84,8 +91,10 @@ public class Show implements ConfigurationSerializable {
     }
 
     public static Show deserialize(Map<String, Object> args) {
+        String name = (String) args.get("name");
         boolean highest = (Boolean) args.get("highest");
         Show show = new Show();
+        show.setName(name);
         show.setHighest(highest);
         for ( Frame f : (ArrayList<Frame>) args.get("frames") ) {
             show.frames.add(f);

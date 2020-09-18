@@ -1,9 +1,9 @@
-# FireworkShow++
-Create a customizable Firework show with minecraft fireworks!
+# Ultimate-FireworkShow-Reborn
+Minecraft plugin: Create a customizable fireworks show with minecraft fireworks!
 
 This plugin makes use of the bukkit serialization system, editing a firework show in the data files is a bad idea!
 
-Original Creator: [iGufGuf](https://mcdev.igufguf.com)
+Original Creator: [igufguf](https://mcdev.igufguf.com)
 Being Maintained (Possibly forever?) by [Jackietkfrost](https://am-x2.com) and [Zuwel](https://github.com/Zuwel)
 
 Updated for version 1.16.3, Hasn't been tested on earlier versions.

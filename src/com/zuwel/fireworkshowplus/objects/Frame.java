@@ -1,6 +1,6 @@
-package com.igufguf.fireworkshow.objects;
+package com.zuwel.fireworkshowplus.objects;
 
-import com.igufguf.fireworkshow.objects.fireworks.Fireworks;
+import com.zuwel.fireworkshowplus.objects.fireworks.Fireworks;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import java.util.ArrayList;

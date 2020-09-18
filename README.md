@@ -1,7 +1,7 @@
 # FireworkShow+
 Minecraft plugin: Create a customizable fireworks show with minecraft fireworks!
 
-This plugin makes use of the bukkit serialization system, editing a firework show in the data files is a bad idea!
+This plugin makes use of the bukkit serialization system!
 
 Original Creator: [igufguf](https://mcdev.igufguf.com)
 Being Maintained (Possibly forever?) by [Jackietkfrost](https://am-x2.com) and [Zuwel](https://github.com/Zuwel)

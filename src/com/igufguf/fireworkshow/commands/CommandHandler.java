@@ -302,6 +302,11 @@ public class CommandHandler implements CommandExecutor {
                 return true;
             }
 
+            if (FireworkShow.getShows().get(name).frames.isEmpty()) {
+                sender.sendMessage(ChatColor.RED + "There are no frames in this show!");
+                return true;
+            }
+
             int frame;
             if (args.length == 3)
             {

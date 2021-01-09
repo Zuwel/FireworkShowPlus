@@ -5,6 +5,8 @@ import com.zuwel.fireworkshowplus.commands.base.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.entity.Player;
 
 public class DeleteShowCommand implements BaseCommand {
 
@@ -39,6 +41,11 @@ public class DeleteShowCommand implements BaseCommand {
     }
 
     @Override
+    public int minArgs() {
+        return 1;
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 
@@ -57,6 +64,11 @@ public class DeleteShowCommand implements BaseCommand {
             return false;
         }
 
+        if (sender instanceof ConsoleCommandSender == false || FireworkShow.getShows().get(uuid).getAuthor() != ((Player) sender).getUniqueId().toString()) {
+            sender.sendMessage(ChatColor.RED + "You do not have the permissions necessary to use this command.");
+            return false;
+        }
+
         if ( !args[args.length - 1].equalsIgnoreCase("confirm")) {
             sender.sendMessage(ChatColor.YELLOW + "If you're sure you want to delete this show, run the last command with '" + ChatColor.GREEN + "confirm" + ChatColor.YELLOW + "' written at the end.");
             return false;
@@ -64,7 +76,6 @@ public class DeleteShowCommand implements BaseCommand {
 
         if ( FireworkShow.deleteShow(uuid) ) {
             sender.sendMessage(ChatColor.GREEN + "You " + ChatColor.RED + "deleted" + ChatColor.GREEN + " the fireworks show with the ID " + ChatColor.DARK_GREEN + uuid + ChatColor.GREEN + "!");
-
         }
 
         return true;

@@ -11,17 +11,19 @@ import java.util.Map;
 public class Show implements ConfigurationSerializable {
 
     private String name;
-    public ArrayList<Frame> frames = new ArrayList<Frame>();
+    private String author;
+    private ArrayList<Frame> frames = new ArrayList<Frame>();
     private ArrayList<Integer> taskids = new ArrayList<Integer>();
     private boolean running = false;
     private boolean highest = false;
 
     public Show() {
-        this("New Show");
+        this("New Show", null);
     }
 
-    public Show(String name) {
+    public Show(String name, String author) {
         this.name = name;
+        this.author = author;
     }
 
     public Show(Show show) {
@@ -66,12 +68,22 @@ public class Show implements ConfigurationSerializable {
         return running;
     }
 
+    public void setFrames(ArrayList<Frame> frames) {
+        this.frames = frames;
+    }
+    public ArrayList<Frame> getFrames() {
+        return frames;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
     public String getName() {
         return name;
     }
+
+    public void setAuthor(String author) { this.author = author; }
+    public String getAuthor() { return author; }
 
     public void setHighest(boolean highest) {
         this.highest = highest;

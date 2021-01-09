@@ -38,6 +38,11 @@ public class MainMenuCommand implements BaseCommand {
     }
 
     @Override
+    public int minArgs() {
+        return 0;
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
 

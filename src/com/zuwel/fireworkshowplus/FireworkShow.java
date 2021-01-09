@@ -30,6 +30,7 @@ public class FireworkShow extends JavaPlugin
     public static Server server;
     public static CommandHandler handler;
     public static File dataFolder;
+    public static String version;
 
     public void loadShowFile(String fileName) {
 
@@ -86,6 +87,7 @@ public class FireworkShow extends JavaPlugin
         server = getServer();
         handler = new CommandHandler();
         dataFolder = getDataFolder();
+        version = fws.getDescription().getVersion();
 
         ConfigurationSerialization.registerClass(Show.class);
         ConfigurationSerialization.registerClass(Frame.class);
@@ -138,13 +140,13 @@ public class FireworkShow extends JavaPlugin
     //  Try and make it handle Cunthorpe problem adequately.
     //  Alternatively have it hide them from the shows list.
     //  Also add param to make it private or public show. (Private shows only available to Authors/Editors/OP's, requires perm fireworks.shows.list.viewall)
-    public static void createShow(String name)
+    public static void createShow(String name, String author)
     {
         String uuid = "";
         while ( uuid.isEmpty() || showsfile.contains(uuid)) {
             uuid = UUID.randomUUID().toString();
         }
-        shows.put(uuid, new Show(name));
+        shows.put(uuid, new Show(name, author));
         showsfile.set(uuid, shows.get(uuid));
         saveShows();
     }

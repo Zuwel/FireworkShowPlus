@@ -29,6 +29,10 @@ public interface BaseCommand {
     //Example: false
     boolean serverExec();
 
+    //Minimum number of expected arguments required to run this command.
+    //A minimum of zero will run with any number of arguments.
+    int minArgs();
+
     //Command event execution function.
     boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args);
 

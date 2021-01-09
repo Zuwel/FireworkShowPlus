@@ -5,6 +5,9 @@ import com.zuwel.fireworkshowplus.commands.base.BaseCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import java.util.UUID;
 
 public class CreateShowCommand implements BaseCommand {
 
@@ -39,6 +42,11 @@ public class CreateShowCommand implements BaseCommand {
     }
 
     @Override
+    public int minArgs() {
+        return 0;
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
 
         String name = "New Show";
@@ -52,7 +60,9 @@ public class CreateShowCommand implements BaseCommand {
             name = argsJoin.toString();
         }
 
-        FireworkShow.createShow(name);
+        String uuid = ((Player) sender).getUniqueId().toString();
+
+        FireworkShow.createShow(name, uuid);
         sender.sendMessage(ChatColor.GREEN + "You created a fireworks show with name " + ChatColor.DARK_GREEN + name + ChatColor.GREEN + "!");
 
         return true;
